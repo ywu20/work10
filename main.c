@@ -12,31 +12,42 @@ void print_list (struct Poke * poke){
 
 //insert node in front
 struct Poke * insert_front(struct Poke * s, int num, char str[15]){
+  //create new struct
  struct Poke * p = malloc(sizeof(struct Poke));
+
+ //initialize new struct
   p->n =num;
   strcpy(p->name,str);
+
+  //set new struct's next to point to given struct
   p->next = s;
   return p;
 }
 
+//frees the linked list
+
 struct Poke * free_list(struct Poke * s){
-  while(s->next != NULL){
-   
-   s++;
+  while(s != NULL){
+   //free current node
    free (s);
+
+   //go to next node
+   s=s->next;
+
   }
   return s;
 }
 
 int main(){
-  struct Poke pika = {1, "pikachu", NULL};
-  print_list(&pika);
-  struct Poke * squi = insert_front(&pika, 3, "squirtle");
-  print_list(squi);
-  printf("pika: %p\n", &pika);
   srand(time (NULL));
-  //struct Poke* squi = new_struct(rand(), "squirtle");
-  //print_Poke(squi);
-  //free(squi);
+  struct Poke * pika = insert_front(pika, rand(), "pikachu");
+  print_list(pika);
+  struct Poke * squi = insert_front(pika, rand(), "squirtle");
+  print_list(squi);
+
+  free_list(squi);
+  printf("squi: %p\n", squi);
+  printf("pika: %p\n", pika);
+
   return 0;
 }
