@@ -27,12 +27,14 @@ struct Poke * insert_front(struct Poke * s, int num, char str[15]){
 //frees the linked list
 
 struct Poke * free_list(struct Poke * s){
-  while(s != NULL){
+  struct Poke * temp = s;
+  while(s){
+   s = s->next;
    //free current node
-   free (s);
+   free (temp);
 
    //go to next node
-   s=s->next;
+   temp=s;
 
   }
   return s;
