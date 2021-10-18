@@ -7,7 +7,10 @@ struct Poke {int n; char name[15]; struct Poke * next;};
 
 // print struct
 void print_list (struct Poke * poke){
+  while(poke){
   printf("{%d, %s, %p }\n", poke -> n, poke -> name, poke ->next);
+  poke = poke ->next;
+}
 }
 
 //insert node in front
@@ -40,5 +43,17 @@ struct Poke * free_list(struct Poke * s){
   return s;
 }
 
-// remove node in the front
-struct Poke * remove_node (struct Poke * front, int data);
+// remove first node with p_n and p_name
+struct Poke * remove_node (struct Poke * front, int p_n, char p_name[15]){
+  // if the current node is not null
+  if(front){
+    if(((front -> n) == p_n) && (strcmp((front->name), p_name) == 0)){
+    struct Poke * out = front -> next;
+      free(front);
+      return out;
+    }else{
+      front -> next = remove_node(front ->next, p_n, p_name);
+    }
+  }
+  return front;
+}
